@@ -24,9 +24,9 @@ if pgrep -f "uv run app.py" > /dev/null; then
 fi
 
 # Run OpenAlgo in background
-cd /root/openalgo
-nohup uv run app.py > /root/openalgo/openalgo.log 2>&1 &
+cd /root/openalgo-android
+nohup uv run app.py > /root/openalgo-android/openalgo.log 2>&1 &
 
 echo "OpenAlgo started in background. PID: $!"
-echo "Logs: /root/openalgo/openalgo.log"
+echo "Logs: /root/openalgo-android/openalgo.log"
 echo "Access at: http://127.0.0.1:5000"
