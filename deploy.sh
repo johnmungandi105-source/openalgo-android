@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "🚀 Starting OpenAlgo deployment..."
+echo "🚀 Starting OpenAlgo..."
 
 # Install dependencies if not present
 if ! command -v python3 &> /dev/null; then
@@ -14,22 +14,13 @@ if ! command -v uv &> /dev/null; then
     pip install --break-system-packages uv
 fi
 
-if ! command -v gh &> /dev/null; then
-    echo "Installing GitHub CLI..."
-    apt-get install -y gh
-fi
-
-# Configure git if not set
-if [ -z "$(git config --global user.name)" ]; then
-    read -p "Enter git username: " GIT_USER
-    read -p "Enter git email: " GIT_EMAIL
-    git config --global user.name "$GIT_USER"
-    git config --global user.email "$GIT_EMAIL"
-fi
-
 # Set environment variable for uv
 export UV_LINK_MODE=copy
 
-# Run OpenAlgo
-echo "Starting OpenAlgo..."
-uv run app.py
+# Run OpenAlgo in background
+cd /root/openalgo
+nohup uv run app.py > /root/openalgo/openalgo.log 2>&1 &
+
+echo "OpenAlgo started in background. PID: $!"
+echo "Logs: /root/openalgo/openalgo.log"
+echo "Access at: http://127.0.0.1:5000"
