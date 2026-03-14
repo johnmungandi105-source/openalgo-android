@@ -17,6 +17,12 @@ fi
 # Set environment variable for uv
 export UV_LINK_MODE=copy
 
+# Check if already running
+if pgrep -f "uv run app.py" > /dev/null; then
+    echo "OpenAlgo is already running."
+    exit 0
+fi
+
 # Run OpenAlgo in background
 cd /root/openalgo
 nohup uv run app.py > /root/openalgo/openalgo.log 2>&1 &
